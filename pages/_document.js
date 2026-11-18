@@ -1,4 +1,5 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
+import { withBasePath } from "../lib/basePath";
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -32,6 +33,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          <link rel="icon" href={withBasePath("/favicon.ico")} />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
             rel="preconnect"

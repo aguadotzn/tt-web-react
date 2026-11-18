@@ -6,6 +6,7 @@ import { getIconByName } from "./Icons";
 import Image from "next/image";
 import { Collapse } from "react-collapse";
 import { useState } from "react";
+import { withBasePath } from "../lib/basePath";
 
 const Container = styled((props) => <SectionLayout {...props} />)`
   display: flex;
@@ -95,7 +96,7 @@ const QAItem = ({ data, isQAOpen = false }) => {
             {links.map(({ label, url }, index) => {
               return (
                 <li key={index}>
-                  <a href={url}>{label}</a>{" "}
+                  <a href={withBasePath(url)}>{label}</a>{" "}
                 </li>
               );
             })}

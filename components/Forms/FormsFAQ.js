@@ -5,6 +5,7 @@ import { getIconByName } from "../Icons";
 import { Collapse } from "react-collapse";
 import { useState } from "react";
 import SharedButtons from "../shared/SharedButtons";
+import { withBasePath } from "../../lib/basePath";
 
 const Container = styled((props) => <SectionLayout {...props} />)`
   display: flex;
@@ -75,7 +76,7 @@ const QAItem = ({ data, isQAOpen = false }) => {
             {links?.map(({ label, url }, index) => {
               return (
                 <li key={index}>
-                  <a href={url}>{label}</a>{" "}
+                  <a href={withBasePath(url)}>{label}</a>{" "}
                 </li>
               );
             })}
@@ -102,7 +103,10 @@ const FormsFAQ = ({ faqs, ...rest }) => {
           })}
         </FAQContainer>
       </FAQWrapper>
-      <SharedButtons text="TeachTech es un proyecto sin ánimo de lucro para enseñar las bases de la programación. Más info aquí: " url="https://teacht3ch.com/"/>
+      <SharedButtons
+        text="TeachTech es un proyecto sin ánimo de lucro para enseñar las bases de la programación. Más info aquí: "
+        url="https://teacht3ch.com/"
+      />
     </Container>
   );
 };

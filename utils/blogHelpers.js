@@ -2,6 +2,7 @@ import { format, parse } from "date-fns";
 import { es } from "date-fns/locale";
 import authors from "../utils/authors.json";
 import { useState } from "react";
+import { withBasePath } from "../lib/basePath";
 
 export function getAuthorData(userName) {
   return userName && authors.hasOwnProperty(userName.toLowerCase())
@@ -11,10 +12,10 @@ export function getAuthorData(userName) {
 
 export function getAuthorImage(imageName, section = "authors") {
   if (!imageName || imageName.includes("default")) {
-    return `url(/img/generic.png)`;
+    return `url(${withBasePath("/img/generic.png")})`;
   }
 
-  return `url(/img/${section}/${imageName})`;
+  return `url(${withBasePath(`/img/${section}/${imageName}`)})`;
 }
 
 export function getFormattedPublishDate(date) {
