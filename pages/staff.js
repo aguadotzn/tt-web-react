@@ -1,7 +1,6 @@
 import staff from "../utils/staff.json";
 import { existsSync } from "fs";
 import path from "path";
-import shuffle from "lodash.shuffle";
 import { useRouter } from "next/router";
 import StaffHeaderSection from "../components/Staff/StaffHeaderSection";
 import StaffMembersSection from "../components/Staff/StaffMembersSection";
@@ -15,19 +14,22 @@ export async function getStaticProps() {
 
   return {
     props: {
-      staff: shuffle(
-        Object.entries(staff.people).map(([id, person]) => ({ id, ...person }))
-      ).map((member) => {
-        const imageUrl = getRelativeUrl(member, "jpg");
-        const videoUrl = getRelativeUrl(member, "mp4");
-        return {
-          ...member,
-          image: existsSync(path.join(process.cwd(), "public", imageUrl))
-            ? imageUrl
-            : `/img/team/placeholder.svg`,
-          video: null,
-        };
-      }),
+      staff: Object.entries(staff.people)
+        .map(([id, person]) => ({ id, ...person }))
+        .sort((a, b) =>
+          a.name.localeCompare(b.name, "es", { sensitivity: "base" })
+        )
+        .map((member) => {
+          const imageUrl = getRelativeUrl(member, "jpg");
+          const videoUrl = getRelativeUrl(member, "mp4");
+          return {
+            ...member,
+            image: existsSync(path.join(process.cwd(), "public", imageUrl))
+              ? imageUrl
+              : `/img/team/placeholder.svg`,
+            video: null,
+          };
+        }),
     },
   };
 }
